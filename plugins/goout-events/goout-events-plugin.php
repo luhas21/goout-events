@@ -132,7 +132,7 @@ add_action('init', 'custom_theme_menus');
 
 
 // Add featured images for the eventspost type
-add_theme_support('post-thumbnails', ['post', 'events', 'dates', 'venues', 'people', 'partners', 'q-and-a', 'files', 'tickets']);
+add_theme_support('post-thumbnails', ['post', 'page', 'events', 'dates', 'venues', 'people', 'partners', 'q-and-a', 'files', 'tickets']);
 
 function change_post_type_labels( $args, $post_type ) {
     if ( $post_type === 'post' ) {
