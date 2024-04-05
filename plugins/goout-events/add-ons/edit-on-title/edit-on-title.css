@@ -1,0 +1,27 @@
+a.edit-on-title-button {
+    display: block;
+    position: absolute !important;
+    background-color: transparent;
+    z-index:100;
+    right: 0;
+    top: 0;
+    height: initial !important;
+    width: 100px;
+    display: block;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 13px;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+}
+
+a.edit-on-title-button:hover {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+a.edit-on-title-button:after {
+    display: none;
+}

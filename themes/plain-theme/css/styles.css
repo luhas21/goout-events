@@ -1,0 +1,45 @@
+
+/* Styles for the site */
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    /* background-color: var(--mainColor); */
+}
+
+h2 {
+    color: var(--buttonColor);
+}
+
+h2 a {
+    color: var(--mainColor);
+    text-decoration: none;
+}
+
+nav {
+    background-color: var(--mainColor);
+    padding: 1em;
+}
+
+nav ul.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul.menu li {
+    display: inline-block;
+    margin-right: 1em;
+    color: white;
+}
+nav ul.menu li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+}
+
+.event-hr {
+    border: none;
+    border-top: 1px dashed var(--mainColor);
+}
