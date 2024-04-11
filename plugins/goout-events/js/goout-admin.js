@@ -1,4 +1,4 @@
-console.log('AHOJ, tady script pro administraci na stránce typu příspěvku "dates"');
+console.log('PLUGIN BACKEND SCRIPT');
 
 (function($) {
     'use strict';

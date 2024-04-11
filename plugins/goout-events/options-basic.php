@@ -18,8 +18,11 @@ function goout_custom_menu() {
         add_submenu_page('basic_settings_page', __("Nastavení fesstivalu", "t"), __("Nastavení festivalu", "t"), "manage_options", 'festival_settings_page', 'festival_settings_page');
     } else if (get_option('basic_website_type') == 'exhibition') {
         add_submenu_page('basic_settings_page', __("Nastavení výstavy", "t"), __("Nastavení výstavy", "t"), "manage_options", 'exhibition_settings_page', 'exhibition_settings_page');
+    } else if (get_option('basic_website_type') == 'goout-feed') {
+        add_submenu_page('basic_settings_page', __("GoOut Feed", "t"), __("GoOut Feed", "t"), "manage_options", 'goout-feed_settings_page', 'goout-feed_settings_page');
     }
     add_submenu_page('basic_settings_page', __("Sociální sítě", "t"), __("Sociální sítě", "t"), "manage_options", 'socials_settings_page', 'socials_settings_page');
+    add_submenu_page('basic_settings_page', __("Cookies", "t"), __("Nastavení Cookies", "t"), "manage_options", 'cookies_settings_page', 'cookies_settings_page');
 }
 
 function custom_menu_styles() {
@@ -61,6 +64,18 @@ function socials_settings_page() {
     <?php
 }
 
+function cookies_settings_page() {
+    ?>
+    <div class="wrap">
+        <h2><?php _e('GoOut - Nastavení cookies', 't'); ?></h2>
+        <form method="post" action="options.php">
+            <?php settings_fields('cookies_settings_group'); ?>
+            <?php do_settings_sections('cookies_settings_page'); ?>
+            <?php submit_button(); ?>
+        </form>
+    </div>
+    <?php
+}
 
 function basic_settings() {
     //// Basic settings sections registration
@@ -127,7 +142,7 @@ function basic_settings() {
 }
 add_action("admin_init", "basic_settings");
 
-function social_settings() {
+function socials_settings() {
 
     //// Social networks sections registration
 
@@ -170,7 +185,42 @@ function social_settings() {
     add_settings_field("video_link", __("Odkaz na úvodní youtube video", "t"), "display_video_link", "socials_settings_page", "section_app_links");
     register_setting("socials_settings_group", "video_link");
 }
-add_action("admin_init", "social_settings");
+add_action("admin_init", "socials_settings");
+
+
+function cookies_settings() {
+
+    //// cookie networks sections registration
+
+    // Section "Základní nastavení Cookies" registration
+    add_settings_section("section_cookies_usage", __("Základní nastavení Cookies", "t"), null, "cookies_settings_page");
+
+    // Cookie usage turn on/field
+    add_settings_field("use_cookies", __("Podpora Cookies", "t"), "display_use_cookies", "cookies_settings_page", "section_cookies_usage");
+    register_setting("cookies_settings_group", "use_cookies");
+
+
+    // Section "Kódy pro Cookies" registration
+    add_settings_section("section_cookies_codes", __("Kódy pro Cookies", "t"), null, "cookies_settings_page");
+
+    // Sklick ID field
+    add_settings_field("sklick_code", __("Sklik ID", "t"), "display_sklick_id", "cookies_settings_page", "section_cookies_codes");
+    register_setting("cookies_settings_group", "sklick_code");
+
+    // Facebook Pixel ID field
+    add_settings_field("facebook_pixel_id", __("Kód Facebook", "t"), "display_facebook_pixel_id", "cookies_settings_page", "section_cookies_codes");
+    register_setting("cookies_settings_group", "facebook_pixel_id");
+
+    // Google Analytics ID field
+    add_settings_field("google_analytics_id", __("Google Analytics ID", "t"), "display_google_analytics_id", "cookies_settings_page", "section_cookies_codes");
+    register_setting("cookies_settings_group", "google_analytics_id");
+
+    // Google Ads ID field
+    add_settings_field("google_ads_id", __("Kód Instagram", "t"), "display_google_ads_id", "cookies_settings_page", "section_cookies_codes");
+    register_setting("cookies_settings_group", "google_ads_id");
+}
+add_action("admin_init", "cookies_settings");
+
 
 // Basic website type settings fields functions
 
@@ -341,5 +391,43 @@ function display_video_link() {
     <?php
 }
 
+function display_use_cookies() {
+    $use_cookies = get_option("use_cookies");
+    ?>
+    <input type="checkbox" name="use_cookies" <?php echo checked('on', $use_cookies, false); ?> /> <?php _e('Pro zapnutí podpory Cookies zaškrtněte.', 't'); ?>
+    <?php
+}
+
+function display_sklick_id() {
+    $sklick_id = get_option("sklick_id");
+    ?>
+    <input type="text" name="sklick_id" value="<?php echo esc_attr($sklick_id); ?>" style="width: 300px;" />
+    <p class="description"><?php _e('Zadejte ID pro Sklick.', 't'); ?></p>
+    <?php
+}
+
+function display_facebook_pixel_id() {
+    $facebook_pixel_id = get_option("facebook_pixel_id");
+    ?>
+    <input type="text" name="facebook_pixel_id" value="<?php echo esc_attr($facebook_pixel_id); ?>" style="width: 300px;" />
+    <p class="description"><?php _e('Zadejte ID pro Facebook Pixel.', 't'); ?></p>
+    <?php
+}
+
+function display_google_analytics_id() {
+    $google_analytics_id = get_option("google_analytics_id");
+    ?>
+    <input type="text" name="google_analytics_id" value="<?php echo esc_attr($google_analytics_id); ?>" style="width: 300px;" />
+    <p class="description"><?php _e('Zadejte ID pro Google Analytics', 't'); ?></p>
+    <?php
+}
+
+function display_google_ads_id() {
+    $google_ads_id = get_option("google_ads_id");
+    ?>
+    <input type="text" name="google_ads_id" value="<?php echo esc_attr($google_ads_id); ?>" style="width: 300px;" />
+    <p class="description"><?php _e('Zadejte ID pro Google Ads.', 't'); ?></p>
+    <?php
+}
 
 ?>

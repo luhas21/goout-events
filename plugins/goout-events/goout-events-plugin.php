@@ -14,13 +14,15 @@
 // Insert CSS files
 function add_custom_css() {
     wp_enqueue_style('custom-style', plugins_url('css/styles.css', __FILE__));
+    if (get_option('use_cookies') == 'on') {
+        wp_enqueue_style('goout-events-cookies-styles', plugins_url('css/cookies.css', __FILE__));
+    }
 }
+add_action('wp_enqueue_scripts', 'add_custom_css');
 function add_custom_admin_css() {
     wp_enqueue_style('custom-admin-style', plugins_url('css/styles.css', __FILE__));
 }
-
 add_action('admin_enqueue_scripts', 'add_custom_admin_css');
-add_action('wp_enqueue_scripts', 'add_custom_css');
 
 // Insert JS files
 // Register scripts for admin pages
@@ -31,7 +33,11 @@ add_action('admin_head', 'goout_events_load_admin_scripts');
 
 // Register scripts for front end
 function enqueue_goout_events_load_scripts() {
-    wp_enqueue_script('goout-events-scripts', plugins_url('/js/scripts.js', __FILE__));
+    wp_enqueue_script('goout-events-scripts', plugins_url('/js/goout-scripts.js', __FILE__));
+    if (get_option('use_cookies') == 'on') {
+        wp_enqueue_script('cookies-script', 'https://static.goout.net/cookie-plugin/goout-cookie.umd.js', array(), null, false);
+        wp_enqueue_script('goout-events-cookies-scripts', plugins_url('js/goout-cookies.js', __FILE__));
+    }
 }
 add_action('wp_enqueue_scripts','enqueue_goout_events_load_scripts');
 
